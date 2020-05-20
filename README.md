@@ -3,15 +3,11 @@
 ```java
 package com.agroneural.pentaho.cda.graphql;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import org.pentaho.reporting.engine.classic.core.util.TypedTableModel;
 
 public class TestClient {
 
 	public static void main(String[] args) throws Exception {
-		// TODO Auto-generated method stub
 
 //		String query = "" +
 //		"mutation {" +
@@ -22,14 +18,6 @@ public class TestClient {
 //		"	}" +
 //		"}";
 //		
-//		Map columns = new HashMap();
-//		
-//		// Set the output fields from the query - use only String.class
-//		columns.put("status", String.class);
-//		columns.put("success", String.class);
-//		columns.put("message", String.class);
-
-		
 		String query = "" +
 		"{" +
 		"	appVersion(appName: \"im4adm\") {" +
@@ -39,18 +27,10 @@ public class TestClient {
 		"	    url" +
 		"	}" +
 		"}";
-		
-		Map columns = new HashMap();
-		
-		// Set the output fields from the query - use only String.class
-		columns.put("appName", String.class);
-		columns.put("version", String.class);
-		columns.put("forceUpdate", String.class);
-		columns.put("url", String.class);
-		
-		GraphqlDatasource graphqlDatasource = new GraphqlDatasource("http://localhost:8080/", true);
 
-		TypedTableModel r = graphqlDatasource.run(columns, query, "123456");
+        GraphqlDatasource graphqlDatasource = new GraphqlDatasource("http://localhost:8080/", true);
+
+		TypedTableModel r = graphqlDatasource.run(query, "123456");
 		
 	}
 
