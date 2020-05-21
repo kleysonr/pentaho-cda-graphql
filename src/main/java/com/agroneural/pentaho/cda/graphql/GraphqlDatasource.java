@@ -55,7 +55,7 @@ public class GraphqlDatasource {
 
 	}
 
-	public CloseableHttpResponse executeGraphqlQuery(String query, String token) throws JSONException, ClientProtocolException, IOException {
+	public CloseableHttpResponse executeGraphqlQuery(String query, String token, String xtoken) throws JSONException, ClientProtocolException, IOException {
 
 		CloseableHttpClient client = null;
 		CloseableHttpResponse response = null;
@@ -64,11 +64,14 @@ public class GraphqlDatasource {
 		HttpPost httpPost= new HttpPost(this.url);
 
 		if (token != null)
-			httpPost.addHeader("Authorization","Bearer " + token);
+			httpPost.addHeader("Authorization", "Bearer " + token);
 
+		if (xtoken != null)
+			httpPost.addHeader("X-Authorization", xtoken);
+		
 		httpPost.addHeader("Content-Type","application/json");
 		httpPost.addHeader("Accept","application/json");
-		httpPost.addHeader("X-Origin","pentaho-cda://graphqldatasource");
+		httpPost.addHeader("Origin","pentaho-cda://graphqldatasource");
 
 		JSONObject jsonObj = new JSONObject();
 		jsonObj.put("query", query);
@@ -201,15 +204,15 @@ public class GraphqlDatasource {
 
 	public TypedTableModel run(String query) throws JSONException, ClientProtocolException, IOException {
 
-		return run(query, null);
+		return run(query, null, null);
 
 	}
 
-	public TypedTableModel run(String query, String token) throws JSONException, ClientProtocolException, IOException {
+	public TypedTableModel run(String query, String token, String xtoken) throws JSONException, ClientProtocolException, IOException {
 
 		TypedTableModel model = null;
 
-		CloseableHttpResponse result = executeGraphqlQuery(query, token);
+		CloseableHttpResponse result = executeGraphqlQuery(query, token, xtoken);
 
 		BufferedReader reader = new BufferedReader(new InputStreamReader(result.getEntity().getContent()));
 

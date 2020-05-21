@@ -31,7 +31,7 @@ public class TestClient {
 
 		GraphqlDatasource graphqlDatasource = new GraphqlDatasource("http://localhost:8080/", true);
 
-		TypedTableModel r = graphqlDatasource.run(query, "123456");
+		TypedTableModel r = graphqlDatasource.run(query, null, "123456");
 
 	}
 
